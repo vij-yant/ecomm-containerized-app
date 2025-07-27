@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  product-service:
+    build: ./product-service
+    container_name: product-service
+    expose:
+      - "8081"
+    networks:
+      - ecommerce-network
+
+  order-service:
+    build: ./order-service
+    container_name: order-service
+    expose:
+      - "8082"
+    networks:
+      - ecommerce-network
+
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    expose:
+      - "8083"
+    networks:
+      - ecommerce-network
+
+  gateway-service:
+    build: ./gateway-service
+    container_name: gateway-service
+    ports:
+      - "8080:8080" # host:container
+    networks:
+      - ecommerce-network
+    depends_on:
+      - product-service
+      - order-service
+      - user-service
+
+networks:
+  ecommerce-network:
+    driver: bridge

@@ -1,0 +1,28 @@
+server:
+  port: 8082
+
+services:
+  user-service:
+    url:  http://user-service:8083/api/users/
+  product-service:
+    url:  http://product-service:8081/api/products/
+
+spring:
+  application:
+    name: order-service
+
+  datasource:
+    url: jdbc:h2:mem:ordersdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
