@@ -1,0 +1,18 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: search-service
+
+qdrant:
+  url: ${QDRANT_URL:http://qdrant:6333}
+  collection: products-embeddings
+  embedding-size: 384
+
+embedding:
+  url: ${EMBEDDING_URL:http://embed-service:8000/embed}
+
+services:
+  product-service:
+    url:  http://product-service:8081/api/products

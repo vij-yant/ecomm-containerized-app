@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -42,5 +43,19 @@ public class ProductService {
             existing.setQuantityInStock(updatedProduct.getQuantityInStock());
             return repository.save(existing);
         });
+    }
+
+    public List<Product> getUnembeddedProducts() {
+        return repository.findByIsEmbeddedFalse()
+                .stream()
+                .map(product -> product)
+                .collect(Collectors.toList());
+    }
+
+    public void markAsEmbedded(Long id) {
+        Product product = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        product.setEmbedded(true);
+        repository.save(product);
     }
 }

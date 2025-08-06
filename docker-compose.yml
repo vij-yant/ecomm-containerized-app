@@ -25,17 +25,46 @@ services:
     networks:
       - ecommerce-network
 
+  search-service:
+    build: ./search-service
+    container_name: search-service
+    expose:
+      - "8084"
+    networks:
+      - ecommerce-network
+    depends_on:
+      - product-service
+      - qdrant
+      - embed-service
+
+  embed-service:
+    build: ./embed-service
+    container_name: embed-service
+    ports:
+      - "8000:8000"
+    networks:
+      - ecommerce-network
+
+  qdrant:
+    image: qdrant/qdrant
+    container_name: qdrant
+    ports:
+      - "6333:6333"
+    networks:
+      - ecommerce-network
+
   gateway-service:
     build: ./gateway-service
     container_name: gateway-service
     ports:
-      - "8080:8080" # host:container
+      - "8080:8080"
     networks:
       - ecommerce-network
     depends_on:
       - product-service
       - order-service
       - user-service
+      - search-service
 
 networks:
   ecommerce-network:

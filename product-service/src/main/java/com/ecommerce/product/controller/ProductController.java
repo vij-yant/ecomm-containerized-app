@@ -47,4 +47,15 @@ public class ProductController {
         service.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/unembedded")
+    public ResponseEntity<List<Product>> getUnembeddedProducts() {
+        return ResponseEntity.ok(service.getUnembeddedProducts());
+    }
+
+    @PutMapping("/{id}/mark-embedded")
+    public ResponseEntity<Void> markProductAsEmbedded(@PathVariable Long id) {
+        service.markAsEmbedded(id);
+        return ResponseEntity.ok().build();
+    }
 }

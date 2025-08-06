@@ -31,3 +31,10 @@ spring:
               filters:
                 - PrefixPath=/api
 
+            - id: search-service
+              uri: http://search-service:8084
+              predicates:
+                - Path=/search/**
+              filters:
+                - PrefixPath=/api
+

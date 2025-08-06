@@ -29,6 +29,17 @@ public class Product {
     @Min(value = 0, message = "Quantity can't be negative")
     private Integer quantityInStock;
 
+    public boolean isEmbedded() {
+        return isEmbedded;
+    }
+
+    public void setEmbedded(boolean embedded) {
+        isEmbedded = embedded;
+    }
+
+    @Column(name = "is_embedded")
+    private boolean isEmbedded = false;
+
     // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
